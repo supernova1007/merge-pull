@@ -1,0 +1,155 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Agri - List Equipment or Product</title>
+  <style>
+    * {
+      box-sizing: border-box;
+    }
+
+    body {
+      margin: 0;
+      font-family: 'Segoe UI', sans-serif;
+      background: linear-gradient(to right, #e6f4ea, #f9fff7);
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+    }
+
+    .card {
+      background: #ffffff;
+      padding: 30px;
+      width: 100%;
+      max-width: 500px;
+      border-radius: 20px;
+      box-shadow: 0 15px 25px rgba(0, 128, 0, 0.2);
+      transform: perspective(800px) rotateX(2deg);
+      transition: all 0.3s ease;
+    }
+
+    .card:hover {
+      transform: perspective(800px) rotateX(0deg);
+      box-shadow: 0 25px 45px rgba(0, 128, 0, 0.3);
+    }
+
+    h2 {
+      text-align: center;
+      color: #2e7d32;
+      margin-bottom: 20px;
+    }
+
+    label {
+      display: block;
+      margin: 12px 0 6px;
+      font-weight: 500;
+      color: #333;
+    }
+
+    input, textarea, select {
+      width: 100%;
+      padding: 10px;
+      border: 1.5px solid #c8e6c9;
+      border-radius: 8px;
+      background: #f9f9f9;
+      transition: border 0.2s;
+    }
+
+    input:focus, textarea:focus, select:focus {
+      border-color: #66bb6a;
+      outline: none;
+    }
+
+    .hidden {
+      display: none;
+    }
+
+    button {
+      margin-top: 20px;
+      width: 100%;
+      padding: 12px;
+      background: #4caf50;
+      color: white;
+      border: none;
+      border-radius: 10px;
+      font-size: 16px;
+      font-weight: bold;
+      cursor: pointer;
+      transition: background 0.3s;
+    }
+
+    button:hover {
+      background: #388e3c;
+    }
+  </style>
+</head>
+<body>
+
+  <div class="card">
+    <h2>Post Your Agri Listing</h2>
+
+    <form id="listingForm">
+      <label for="typeSelect">Choose Type:</label>
+      <select id="typeSelect" name="type" required>
+        <option value="">-- Select --</option>
+        <option value="implement">Implement (Rent)</option>
+        <option value="product">Product (Sell)</option>
+      </select>
+
+      <!-- Common Fields -->
+      <label for="title">Title:</label>
+      <input type="text" id="title" name="title" placeholder="e.g., John Deere Tractor" required />
+
+      <label for="description">Description:</label>
+      <textarea id="description" name="description" rows="3" placeholder="Enter details..."></textarea>
+
+      <!-- Implement Fields -->
+      <div id="implementFields" class="hidden">
+        <label for="rentPrice">Rent Price (₹/day):</label>
+        <input type="number" name="rentPrice" id="rentPrice" />
+
+        <label>Available Dates:</label>
+        <input type="date" name="availableFrom" /> to
+        <input type="date" name="availableTo" />
+      </div>
+
+      <!-- Product Fields -->
+      <div id="productFields" class="hidden">
+        <label for="pricePerKg">Price (₹/kg):</label>
+        <input type="number" name="pricePerKg" id="pricePerKg" />
+
+        <label for="quantity">Quantity (kg):</label>
+        <input type="number" name="quantity" id="quantity" />
+      </div>
+
+      <button type="submit">Submit Listing</button>
+    </form>
+  </div>
+
+  <script>
+    const typeSelect = document.getElementById('typeSelect');
+    const implementFields = document.getElementById('implementFields');
+    const productFields = document.getElementById('productFields');
+
+    typeSelect.addEventListener('change', () => {
+      implementFields.classList.add('hidden');
+      productFields.classList.add('hidden');
+
+      if (typeSelect.value === 'implement') {
+        implementFields.classList.remove('hidden');
+      } else if(typeSelect.value === 'product') {
+        productFields.classList.remove('hidden');
+      }
+    });
+
+    document.getElementById('listingForm').addEventListener('submit', function (e) {
+      e.preventDefault();
+      alert("🎉 Listing Submitted Successfully!");
+      // TODO: Send form data to backend
+    });
+  </script>
+
+</body>
+</html>
